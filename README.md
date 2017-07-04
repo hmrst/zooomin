@@ -33,5 +33,4 @@ $('.zooomin').zooomin({
 ```
 
 ### TODO
-video support
-thumbnail support
+video & thumbnail support 
