@@ -1,0 +1,7 @@
+*.html
+/assets
+*.png
+site.css
+jquery.js
+.DS_Store
+/.sass-cache
