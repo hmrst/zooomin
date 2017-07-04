@@ -1,7 +1,7 @@
 # zooomin
 Smooth image lightbox
 
-## implementation
+## Implementation
 
 ```html
 <head>
@@ -18,16 +18,20 @@ Smooth image lightbox
 <script src="zooomin.js"></script>
 ```
 
-## use
+## Use
 
 ```javascript
 $('.zooomin').zooomin();
 ```
 
-## extras
+## Extras
 
 ```javascript
 $('.zooomin').zooomin({
   scrollClose: true //default
 });
 ```
+
+### TODO
+video support
+thumbnail support
