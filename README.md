@@ -1,9 +1,6 @@
 # zooomin
 Smooth image lightbox
 
-# Notice
-This is not a finished product. Use it if you want. If not. Don't
-
 ## implementation
 
 ```html
@@ -34,4 +31,3 @@ $('.zooomin').zooomin({
   scrollClose: true //default
 });
 ```
-# zooomin
