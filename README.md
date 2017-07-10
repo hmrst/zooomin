@@ -8,11 +8,7 @@ Smooth image lightbox
 <link rel="stylesheet" href="zooomin.css">
 </head>
 
-<figure class="zooomin">
-  <div class="zooomin-image-container">
-    <!-- insert img -->
-  </div>
-</figure>
+<img class="zc">
 
 <script src="jquery.js"></script>
 <script src="zooomin.js"></script>

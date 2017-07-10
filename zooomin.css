@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.zooomin .zooomin-image-container {
+.zooomin .z-c {
   transition: all 0.4s ease-in-out;
   position: relative;
   top: 0;
@@ -24,37 +24,37 @@
   position: relative;
 }
 
-.zooomin .zooomin-image-container.zooomin {
+.zooomin .z-c.zooomin {
   position: absolute;
   transition: all 0.4s ease-in-out;
 }
 
-.zooomin .zooomin-image-container.zooomin img {
+.zooomin .z-c.zooomin img {
   z-index: 10000;
 }
 
-.zooomin .zooomin-image-container.zooomin-animating img {
+.zooomin .z-c.zooomin-animating img {
   z-index: 10000;
 }
 
-.zooomin .zooomin-image-container.zooomin-animating {
+.zooomin .z-c.zooomin-animating {
   position: absolute;
 }
 
-.zooomin .zooomin-image-container.zooomin-animating:before {
+.zooomin .z-c.zooomin-animating:before {
   visibility: visible;
   opacity: 0;
   z-index: 1000;
 }
 
-.zooomin .zooomin-image-container.zooomin:before {
+.zooomin .z-c.zooomin:before {
   visibility: visible;
   opacity: 1;
   z-index: 10000;
   transition: visibility 0s linear, opacity 0.3s;
 }
 
-.zooomin .zooomin-image-container:before {
+.zooomin .z-c:before {
   content: "";
   display: block;
   position: fixed;

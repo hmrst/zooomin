@@ -16,34 +16,45 @@ $.fn.zooomin = function(op) {
 
 function zooomin(element, options) {
   var self = this;
-  var image = new Image();
 
+  var obj = new Image();
+
+  var element = this.build(element);
   this.options = options;
-  this.elm = element;
-  this.caption = this.elm.find('.zooomin-image-container .zooomin-caption');
-  this.imageContainer = this.elm.find('.zooomin-image-container');
+  this.imageContainer = this.elm.find('.z-c');
 
-  self.img = this.elm.find('img');
-  image.src = this.elm.find('img').attr("src");
-  image.onload = function()
-  {
-    self.init(image);
-  };
+
+
+  if(this.elm.find('img').attr('class')){
+    self.el = this.elm.find('img');
+    obj.src = this.elm.find('img').attr("src");
+    obj.onload = function()
+    {
+      self.init(obj);
+    };
+  }else if(this.elm.find('video').attr('class')){
+    self.el = this.elm.find('video');
+
+    this.imageContainer.find('video').attr('src');
+    console.log(obj)
+    self.init(obj);
+  }
+
 }
 
 zooomin.prototype = {
 
-  init: function(image) {
+  init: function(obj) {
     var self = this;
 
     this.setStartWidth();
-    if(this.img.height() !== 0){
-      self.elm.css({"height":this.img.height()+"px"});
+    if(this.el.height() !== 0){
+      self.elm.css({"height":this.el.height()+"px"});
     }
     this.resizing();
 
     this.elm.on('click', function(e){
-      self.zooomin(image);
+      self.zooomin(obj);
       self.resizing();
     });
   },
@@ -52,63 +63,20 @@ zooomin.prototype = {
     //will create something here later
   },
 
-  zooomin: function(image) {
+  zooomin: function(obj) {
     var self = this;
 
 
     if(this.imageContainer.hasClass('zooomin')){
-      self.imageContainer.removeAttr('style');
-      self.imageContainer.addClass('zooomin-animating');
-      self.caption.removeClass('viewable');
-
-      $('body').removeClass('zooomin-noscroll');
-      setTimeout(function(){
-        self.imageContainer.removeClass('zooomin-animating');
-      },400);
-      self.imageContainer.removeClass('zooomin');
-
+      self.closeZoomin();
     } else {
-
-      var imageW = image.naturalWidth;
-      var imageH = image.naturalHeight;
-      var ratio = imageH / imageW;
-
-
-      if (imageH > $(window).height()){
-        imageH = $(window).height() - 50;
-        imageW = imageH / ratio;
-      }
-
-      if (imageW > $(window).width()){
-        imageW = $(window).width() - 50;
-        imageH = imageW * ratio;
-      }
-
-      var top = $(window).scrollTop() - this.elm.offset().top + (($(window).height() - imageH)/2) + "px";
-
-      var left = this.elm.offset().left - (imageW/2 - $(window).width()/2) + "px";
-      this.elm.css({"height":this.img.height()+"px"});
-      self.imageContainer.css({
-        'height':imageH+"px",
-        'width':imageW+"px",
-        "left":"-"+this.elm.offset().left - (imageW/2 - $(window).width()/2) +"px",
-        "top": top
-      });
-
-
-      self.captions();
-
-      if(self.options.scrollClose){
-        this.scrollClose();
-      }else{
-        $('body').addClass('zooomin-noscroll');
-      }
-
-
-      self.imageContainer.addClass('zooomin');
-
+      self.openZooomin(obj);
     }
 
+  },
+
+  build: function(element){
+    this.elm = element.wrap("<div class='zooomin'><div class='z-c'></div></div>").parent().parent();
   },
 
   scrollClose: function() {
@@ -123,15 +91,7 @@ zooomin.prototype = {
         var current = $(this).scrollTop();
 
         if(current > pos + safe || current < pos - safe){
-          self.imageContainer.removeAttr('style');
-          self.imageContainer.addClass('zooomin-animating');
-
-          self.caption.removeClass('viewable');
-
-          setTimeout(function(){
-            self.imageContainer.removeClass('zooomin-animating');
-          },400);
-          self.imageContainer.removeClass('zooomin');
+          self.closeZoomin();
         }
 
         previous = current;
@@ -139,23 +99,88 @@ zooomin.prototype = {
     });
   },
 
+  closeZoomin: function(){
+    var self = this;
+    self.imageContainer.removeAttr('style');
+    self.imageContainer.addClass('zooomin-animating');
+
+
+    setTimeout(function(){
+      self.imageContainer.removeClass('zooomin-animating');
+    },400);
+    self.imageContainer.removeClass('zooomin');
+
+    if(self.options.videoAutoplay){
+      self.el[0].pause();
+    }
+    $('body').removeClass('zooomin-noscroll');
+  },
+
+  openZooomin: function(obj){
+    var self = this;
+
+    if(self.options.videoAutoplay){
+      self.el[0].play();
+    }
+
+    if(self.options.video){
+      if(self.options.videoHeight && self.options.videoWidth){
+        var objH = self.options.videoHeight;
+        var objW = self.options.videoWidth;
+      }else{
+        var objH = "1080";
+        var objW = "1920";
+      }
+    }else{
+      var objW = obj.naturalWidth;
+      var objH = obj.naturalHeight;
+    }
+
+    var ratio = objH / objW;
+
+
+    if (objH > $(window).height()){
+      objH = $(window).height() - 50;
+      objW = objH / ratio;
+    }
+
+    if (objW > $(window).width()){
+      objW = $(window).width() - 50;
+      objH = objW * ratio;
+    }
+
+    var top = $(window).scrollTop() - this.elm.offset().top + (($(window).height() - objH)/2) + "px";
+
+    var left = this.elm.offset().left - (objW/2 - $(window).width()/2) + "px";
+    this.elm.css({"height":this.el.height()+"px"});
+    self.imageContainer.css({
+      'height':objH+"px",
+      'width':objW+"px",
+      "left":"-"+this.elm.offset().left - (objW/2 - $(window).width()/2) +"px",
+      "top": top
+    });
+
+    if(self.options.scrollClose){
+      this.scrollClose();
+    }else{
+      $('body').addClass('zooomin-noscroll');
+    }
+
+
+    self.imageContainer.addClass('zooomin');
+  },
+
   noscroll: function() {
     window.scrollTo( 0, 0 );
   },
 
-  captions: function() {
-
-    var self = this;
-    setTimeout(function(){
-      self.caption.addClass('viewable');
-    },400);
-
+  openActions: function(){
 
   },
 
   setStartWidth: function() {
-    this.startHeight = this.img.height();
-    this.startWidth = this.img.width();
+    this.startHeight = this.el.height();
+    this.startWidth = this.el.width();
   },
 
   resizing: function() {

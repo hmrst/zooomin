@@ -3,7 +3,8 @@
 body.zooomin-noscroll
 	overflow: hidden
 
-.zooomin img
+.zooomin img,
+.zooomin video
 	max-width: 100%
 	display: inline-block
 
@@ -12,7 +13,7 @@ body.zooomin-noscroll
 	cursor: zoom-in
 	position: relative
 
-.zooomin .zooomin-image-container
+.zooomin .z-c
 	transition: all 0.4s ease-in-out
 	position: relative
 	top: 0
@@ -22,44 +23,47 @@ body.zooomin-noscroll
 	right: 100%
 	text-align: center
 
-.zooomin img
+.zooomin img,
+.zooomin video
 	transition: all 0.4s ease-in-out
 	position: relative
 	z-index: 1
 
-.zooomin .zooomin-image-container.zooomin
+.zooomin .z-c.zooomin
 	position: absolute
 	transition: all 0.4s ease-in-out
 	cursor: zoom-out
 
 
-.zooomin .zooomin-image-container.zooomin img
+.zooomin .z-c.zooomin img,
+.zooomin .z-c.zooomin video
 	//max-width: 100%
 	//max-height: 100%
 	z-index: 4000
 
-.zooomin .zooomin-image-container.zooomin-animating img
+.zooomin .z-c.zooomin-animating img,
+.zooomin .z-c.zooomin-animating video
 	z-index: 4000
 
 
-.zooomin .zooomin-image-container.zooomin-animating
+.zooomin .z-c.zooomin-animating
 	position: absolute
 
 
-.zooomin .zooomin-image-container.zooomin-animating:before
+.zooomin .z-c.zooomin-animating:before
 	visibility: visible
 	opacity: 0
 	z-index: 4000
 
 
 
-.zooomin .zooomin-image-container.zooomin:before
+.zooomin .z-c.zooomin:before
 	visibility: visible
 	opacity: 1
 	z-index: 20
 	transition: visibility 0s linear, opacity .3s
 
-.zooomin .zooomin-image-container:before
+.zooomin .z-c:before
 	content: ''
 	display: block
 	position: fixed
@@ -74,7 +78,7 @@ body.zooomin-noscroll
 	transition: visibility 0s linear, opacity .3s
 
 .zooomin
-	.zooomin-image-container
+	.z-c
 		position: relative
 		.zooomin-caption
 			position: absolute
