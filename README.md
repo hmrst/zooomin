@@ -26,7 +26,6 @@ $('.zooomin').zooomin();
 ```javascript
 $('.zooomin').zooomin({
   scrollClose: true     // default
-  video: false,         // default
   videoWidth: 1920,     // default (change so it matches your video size)
   videoHeight: 1080,    // default (change so it matches your video size)
   videoAutoplay: false  // default
