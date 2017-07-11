@@ -1,5 +1,5 @@
 
-// Version 0.3.2
+// Version 0.4.0
 
 $.fn.zooomin = function(op) {
 
@@ -65,13 +65,16 @@ zooomin.prototype = {
     });
   },
 
+
+
   destroy: function() {
     //will create something here later
   },
 
+
+
   zooomin: function(obj) {
     var self = this;
-
 
     if(this.objContainer.hasClass('zooomin')){
       self.closeZoomin();
@@ -81,9 +84,13 @@ zooomin.prototype = {
 
   },
 
+
+
   build: function(element){
     this.elm = element.wrap("<div class='zooomin'><div class='z-c'></div></div>").parent().parent();
   },
+
+
 
   scrollClose: function() {
     var self = this;
@@ -105,6 +112,8 @@ zooomin.prototype = {
     });
   },
 
+
+
   closeZoomin: function(){
     var self = this;
     self.objContainer.removeAttr('style');
@@ -121,6 +130,8 @@ zooomin.prototype = {
     }
     $('body').removeClass('zooomin-noscroll');
   },
+
+
 
   openZooomin: function(obj){
     var self = this;
@@ -171,18 +182,26 @@ zooomin.prototype = {
     self.objContainer.addClass('zooomin');
   },
 
+
+
   noscroll: function() {
     window.scrollTo( 0, 0 );
   },
+
+
 
   openActions: function(){
 
   },
 
+
+
   setStartWidth: function() {
     this.startHeight = this.el.height();
     this.startWidth = this.el.width();
   },
+
+
 
   resizing: function() {
     var self = this;
