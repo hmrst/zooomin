@@ -5,10 +5,16 @@ $.fn.zooomin = function(op) {
 
   $(this).each(function(){
     var self = this;
-    var defaults = {
-      scrollClose: true
+
+    var options = {
+      scrollClose:    true,
+      video:          false,
+      videoWidth:     1920,
+      videoHeight:    1080,
+      videoAutoplay:  false
     };
-    options = $.extend(defaults, op);
+
+    options = $.extend(options, op);
     new zooomin($(this), options);
   });
 };
@@ -21,7 +27,7 @@ function zooomin(element, options) {
 
   var element = this.build(element);
   this.options = options;
-  this.imageContainer = this.elm.find('.z-c');
+  this.objContainer = this.elm.find('.z-c');
 
 
 
@@ -35,7 +41,7 @@ function zooomin(element, options) {
   }else if(this.elm.find('video').attr('class')){
     self.el = this.elm.find('video');
 
-    this.imageContainer.find('video').attr('src');
+    this.objContainer.find('video').attr('src');
     console.log(obj)
     self.init(obj);
   }
@@ -67,7 +73,7 @@ zooomin.prototype = {
     var self = this;
 
 
-    if(this.imageContainer.hasClass('zooomin')){
+    if(this.objContainer.hasClass('zooomin')){
       self.closeZoomin();
     } else {
       self.openZooomin(obj);
@@ -87,7 +93,7 @@ zooomin.prototype = {
 
     $(window).scroll(function() {
 
-      if(self.imageContainer.hasClass('zooomin')){
+      if(self.objContainer.hasClass('zooomin')){
         var current = $(this).scrollTop();
 
         if(current > pos + safe || current < pos - safe){
@@ -101,14 +107,14 @@ zooomin.prototype = {
 
   closeZoomin: function(){
     var self = this;
-    self.imageContainer.removeAttr('style');
-    self.imageContainer.addClass('zooomin-animating');
+    self.objContainer.removeAttr('style');
+    self.objContainer.addClass('zooomin-animating');
 
 
     setTimeout(function(){
-      self.imageContainer.removeClass('zooomin-animating');
+      self.objContainer.removeClass('zooomin-animating');
     },400);
-    self.imageContainer.removeClass('zooomin');
+    self.objContainer.removeClass('zooomin');
 
     if(self.options.videoAutoplay){
       self.el[0].pause();
@@ -124,13 +130,8 @@ zooomin.prototype = {
     }
 
     if(self.options.video){
-      if(self.options.videoHeight && self.options.videoWidth){
-        var objH = self.options.videoHeight;
-        var objW = self.options.videoWidth;
-      }else{
-        var objH = "1080";
-        var objW = "1920";
-      }
+      var objH = self.options.videoHeight;
+      var objW = self.options.videoWidth;
     }else{
       var objW = obj.naturalWidth;
       var objH = obj.naturalHeight;
@@ -153,7 +154,7 @@ zooomin.prototype = {
 
     var left = this.elm.offset().left - (objW/2 - $(window).width()/2) + "px";
     this.elm.css({"height":this.el.height()+"px"});
-    self.imageContainer.css({
+    self.objContainer.css({
       'height':objH+"px",
       'width':objW+"px",
       "left":"-"+this.elm.offset().left - (objW/2 - $(window).width()/2) +"px",
@@ -167,7 +168,7 @@ zooomin.prototype = {
     }
 
 
-    self.imageContainer.addClass('zooomin');
+    self.objContainer.addClass('zooomin');
   },
 
   noscroll: function() {
