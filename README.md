@@ -9,7 +9,7 @@ Smooth image lightbox
 </head>
 
 <img class="yourclass">
-<video class="yourotherclass" src="video.mp4"></video
+<video class="yourotherclass" src="video.mp4"></video>
 
 <script src="jquery.js"></script>
 <script src="zooomin.js"></script>
@@ -34,4 +34,4 @@ $('.zooomin').zooomin({
 ```
 
 ### TODO
-Thumbnail support 
+Thumbnail support
