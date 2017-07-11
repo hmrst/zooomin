@@ -8,7 +8,8 @@ Smooth image lightbox
 <link rel="stylesheet" href="zooomin.css">
 </head>
 
-<img class="zc">
+<img class="yourclass">
+<video class="yourotherclass" src="video.mp4"></video
 
 <script src="jquery.js"></script>
 <script src="zooomin.js"></script>
@@ -24,9 +25,13 @@ $('.zooomin').zooomin();
 
 ```javascript
 $('.zooomin').zooomin({
-  scrollClose: true //default
+  scrollClose: true     // default
+  video: false,         // default
+  videoWidth: 1920,     // default (change so it matches your video size)
+  videoHeight: 1080,    // default (change so it matches your video size)
+  videoAutoplay: false  // default
 });
 ```
 
 ### TODO
-video & thumbnail support 
+Thumbnail support 
