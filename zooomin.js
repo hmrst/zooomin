@@ -39,6 +39,7 @@ function zooomin(element, options) {
       self.init(obj);
     };
   }else if(this.elm.find('video').attr('class')){
+    self.options.video = true;
     self.el = this.elm.find('video');
 
     this.objContainer.find('video').attr('src');
