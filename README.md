@@ -8,8 +8,8 @@ Smooth image lightbox
 <link rel="stylesheet" href="zooomin.css">
 </head>
 
-<img class="yourclass">
-<video class="yourotherclass" src="video.mp4"></video>
+<img class="zooomin">
+<video class="zooomin" src="video.mp4"></video>
 
 <script src="jquery.js"></script>
 <script src="zooomin.js"></script>
