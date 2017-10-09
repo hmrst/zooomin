@@ -25,10 +25,12 @@ $('.zooomin').zooomin();
 
 ```javascript
 $('.zooomin').zooomin({
-  scrollClose: true     // default
-  videoWidth: 1920,     // default (change so it matches your video size)
-  videoHeight: 1080,    // default (change so it matches your video size)
-  videoAutoplay: false  // default
+  scrollClose: true       // default
+  videoWidth: 1920,       // default (change so it matches your video size)
+  videoHeight: 1080,      // default (change so it matches your video size)
+  videoAutoplay: false,   // default
+  onOpen: false,          // Eventlistener
+  onClose: false,         // Eventlistener
 });
 ```
 

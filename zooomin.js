@@ -11,7 +11,9 @@ $.fn.zooomin = function(op) {
       video:          false,
       videoWidth:     1920,
       videoHeight:    1080,
-      videoAutoplay:  false
+      videoAutoplay:  false,
+      onClose:        false,
+      onOpen:         false
     };
 
     options = $.extend(options, op);
@@ -43,7 +45,6 @@ function zooomin(element, options) {
     self.el = this.elm.find('video');
 
     this.objContainer.find('video').attr('src');
-    console.log(obj)
     self.init(obj);
   }
 
@@ -120,6 +121,9 @@ zooomin.prototype = {
     self.objContainer.removeAttr('style');
     self.objContainer.addClass('zooomin-animating');
 
+    if(self.options.onClose && typeof self.options.onClose == 'function'){
+      self.options.onClose.call(self);
+    }
 
     setTimeout(function(){
       self.objContainer.removeClass('zooomin-animating');
@@ -179,6 +183,9 @@ zooomin.prototype = {
       $('body').addClass('zooomin-noscroll');
     }
 
+    if(self.options.onOpen && typeof self.options.onOpen == 'function'){
+      self.options.onOpen.call(self);
+    }
 
     self.objContainer.addClass('zooomin');
   },
