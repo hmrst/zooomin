@@ -13,7 +13,8 @@ $.fn.zooomin = function(op) {
       videoHeight:    1080,
       videoAutoplay:  false,
       onClose:        false,
-      onOpen:         false
+      onOpen:         false,
+      onInit:         false
     };
 
     options = $.extend(options, op);
@@ -27,7 +28,7 @@ function zooomin(element, options) {
 
   var obj = new Image();
 
-  var element = this.build(element);
+  this.build(element);
   this.options = options;
   this.objContainer = this.elm.find('.z-c');
 
@@ -65,6 +66,11 @@ zooomin.prototype = {
       self.zooomin(obj);
       self.resizing();
     });
+
+    if(self.options.onInit && typeof self.options.onInit == 'function'){
+      self.options.onInit.call(self);
+    }
+
   },
 
 
@@ -140,40 +146,24 @@ zooomin.prototype = {
 
   openZooomin: function(obj){
     var self = this;
-
+    var w = $(window);
+    var ww = w.width();
+    var wh = w.height();
+    var offset = this.elm.offset();
     if(self.options.videoAutoplay){
       self.el[0].play();
     }
 
-    if(self.options.video){
-      var objH = self.options.videoHeight;
-      var objW = self.options.videoWidth;
-    }else{
-      var objW = obj.naturalWidth;
-      var objH = obj.naturalHeight;
-    }
+    dimensions = this.objectDimensions(obj);
 
-    var ratio = objH / objW;
+    var top = w.scrollTop() - offset.top + ((wh - dimensions.objH)/2) + "px";
 
-
-    if (objH > $(window).height()){
-      objH = $(window).height() - 50;
-      objW = objH / ratio;
-    }
-
-    if (objW > $(window).width()){
-      objW = $(window).width() - 50;
-      objH = objW * ratio;
-    }
-
-    var top = $(window).scrollTop() - this.elm.offset().top + (($(window).height() - objH)/2) + "px";
-
-    var left = this.elm.offset().left - (objW/2 - $(window).width()/2) + "px";
+    var left = offset.left - (dimensions.objW/2 - ww/2) + "px";
     this.elm.css({"height":this.el.height()+"px"});
     self.objContainer.css({
-      'height':objH+"px",
-      'width':objW+"px",
-      "left":"-"+this.elm.offset().left - (objW/2 - $(window).width()/2) +"px",
+      'height':dimensions.objH+"px",
+      'width':dimensions.objW+"px",
+      "left":"-"+offset.left - (dimensions.objW/2 - ww/2) +"px",
       "top": top
     });
 
@@ -191,24 +181,45 @@ zooomin.prototype = {
   },
 
 
+  objectDimensions: function(obj) {
+    var self = this;
+    if(self.options.video){
+      objH = self.options.videoHeight;
+      objW = self.options.videoWidth;
+    }else{
+      objW = obj.naturalWidth;
+      objH = obj.naturalHeight;
+    }
+
+    var ratio = objH / objW;
+
+
+    if (objH > $(window).height()){
+      objH = $(window).height() - 50;
+      objW = objH / ratio;
+    }
+
+    if (objW > $(window).width()){
+      objW = $(window).width() - 50;
+      objH = objW * ratio;
+    }
+    dimensions  = {
+      objW: objW,
+      objH: objH
+    }
+    return dimensions;
+  },
+
 
   noscroll: function() {
     window.scrollTo( 0, 0 );
   },
 
 
-
-  openActions: function(){
-
-  },
-
-
-
   setStartWidth: function() {
     this.startHeight = this.el.height();
     this.startWidth = this.el.width();
   },
-
 
 
   resizing: function() {

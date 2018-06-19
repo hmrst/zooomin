@@ -21,7 +21,7 @@ Smooth image lightbox
 $('.zooomin').zooomin();
 ```
 
-## Extras
+## Options
 
 ```javascript
 $('.zooomin').zooomin({
@@ -32,6 +32,12 @@ $('.zooomin').zooomin({
   onOpen: false,          // Eventlistener
   onClose: false,         // Eventlistener
 });
+```
+
+## Help
+
+```markdown
+sass --watch sass/zooomin.sass:stylesheets/zooomin.css
 ```
 
 ### TODO
